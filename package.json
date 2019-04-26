@@ -4,11 +4,18 @@
   "description": "API To Search & Notify Users",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Wellington S. Almeida",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.4",
+    "nodemailer": "^6.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
   }
 }
