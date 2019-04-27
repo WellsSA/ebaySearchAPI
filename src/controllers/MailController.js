@@ -7,11 +7,11 @@ class MailHelper {
         const { email, searchPhrase, interval } = item
         const sortBy = 'price', limitIn = 3
 
-        setInterval(() => {
+        setInterval(async () => {
 
             //@ToDo chamar API Ebay e pegar produtos para gerar o corpo do e-mail
-            const ebay = new EbayHelper()
-            const products = await ebay.get(searchPhrase, sortBy, limitIn)
+            // const ebay = new EbayHelper()
+            // const products = await ebay.get(searchPhrase, sortBy, limitIn)
             
             //@ToDo mandar e-mail
             //@Note descomentar envio de emails para testes
