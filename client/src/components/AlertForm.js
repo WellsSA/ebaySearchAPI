@@ -13,9 +13,22 @@ class AlertForm extends React.Component {
   
     handleSubmit = async (event) => {
         event.preventDefault()
-
-        const response = await ebayAPI.post('alert', this.state)
-        // console.log(response.data)
+        const { operation } = this.props
+        const { searchPhrase, email, interval } = this.state 
+        
+        if(searchPhrase !== '' && email !== '')
+            if(operation === 'create')
+                await ebayAPI.post('alert', { 
+                    searchPhrase, 
+                    email, 
+                    interval
+                })
+            else if(operation === 'update') 
+                await ebayAPI.put(`alert/${this.props.id}`, { 
+                    searchPhrase, 
+                    email, 
+                    interval
+                })
     }
 
     handleOptionChange = (changeEvent) => {
@@ -36,7 +49,7 @@ class AlertForm extends React.Component {
             <label>
                 E-mail:
                 <input 
-                    type="text" 
+                    type="email" 
                     value={this.state.email} 
                     onChange={(e) => this.setState({email: e.target.value})} />
             </label>
