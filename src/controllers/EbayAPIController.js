@@ -1,5 +1,5 @@
-const EbayAPI = require('./../../config/EbayAPI')
-
+const { EbayAPI, ebayAuthHeaders } = require('./../../config/EbayAPI')
+const axios = require('axios')
 /**
  * @class EbayHelper
  * @description defines helper class to handle searchs to Ebay API
@@ -14,15 +14,14 @@ class EbayHelper {
      */
     async get(searchPhrase, sortBy, limit){
         let result;
-
-        await EbayAPI.get(`/buy/browse/v1/item_summary/search
-                            ?q=${searchPhrase}
-                            &sort=${sortBy}
-                            &limit=${limit}`)
+        await EbayAPI.get(`buy/browse/v1/item_summary/search?q=${searchPhrase}&sort=${sortBy}&limit=${limit}`, {
+                headers: ebayAuthHeaders
+            })
             .then((response) => {
                 result = response.data
             })
             .catch((err) => {
+                console.log('Erro ao consultar EbayAPI:',err.response.data.errors[0].longMessage)
                 result = err.response.data
             })
         

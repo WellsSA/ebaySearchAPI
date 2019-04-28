@@ -15,5 +15,4 @@ const EbayAPIController = require('../controllers/EbayAPIController');
 
 routes.get('/search/:searchPhrase/:sort/:limit', EbayAPIController.get);
 
-
 module.exports = routes;

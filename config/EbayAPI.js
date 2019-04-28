@@ -2,10 +2,19 @@ const axios = require('axios')
 
 const sandbox = true
 
-const url = (sandbox) ? 'https://api.sandbox.ebay.com' : 'https://api.ebay.com';
+const sandboxEbayToken = 'v^1.1#i^1#r^0#p^3#f^0#I^3#t^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'
+const productionEbayToken = ''
+const ebayAuthToken = (sandbox) ? sandboxEbayToken : productionEbayToken
+const url = (sandbox) ? 'https://api.sandbox.ebay.com/' : 'https://api.ebay.com/';
 
-const api = axios.create({
+const EbayAPI = axios.create({
     baseURL: url
 })
 
-module.exports = api
+const ebayAuthHeaders = {
+    'Authorization': 'Bearer ' + ebayAuthToken,
+    'Content-Type':'application/json',
+    'X-EBAY-C-ENDUSERCTX':'contextualLocation=country=<2_character_country_code>,zip=<zip_code>,affiliateCampaignId=<ePNCampaignId>,affiliateReferenceId=<referenceId>'
+}
+
+module.exports = { EbayAPI, ebayAuthHeaders }

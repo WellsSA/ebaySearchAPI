@@ -10,9 +10,14 @@ class MailHelper {
         setInterval(async () => {
 
             //@ToDo chamar API Ebay e pegar produtos para gerar o corpo do e-mail
-            // const ebay = new EbayHelper()
-            // const products = await ebay.get(searchPhrase, sortBy, limitIn)
-            
+            const ebay = new EbayHelper()
+            const ebayResponse = await ebay.get(searchPhrase, sortBy, limitIn)
+            const { itemSummaries } = ebayResponse
+
+            let mailBody = (!itemSummaries) ? this.negativeMailBody(searchPhrase, interval) 
+                                            : this.PositiveMailBody(itemSummaries, searchPhrase, interval)
+            console.log('---------------------')
+            console.log(mailBody)
             //@ToDo mandar e-mail
             //@Note descomentar envio de emails para testes
             // sendMail({
@@ -21,8 +26,46 @@ class MailHelper {
             //     subject: 'Node.js ♥ unicode',  // Um assunto bacana :-) 
             //     html: 'E-mail foi enviado do <strong>Node.js</strong>' // O conteúdo do e-mail
             // })
-            console.log(`Enviar email a cada ${interval} minutos para ${email} sobre palavra_chave ${searchPhrase}`)
+            // console.log(`Enviar email a cada ${interval} minutos para ${email} sobre palavra_chave ${searchPhrase}`)
         }, interval * 1000)
+    }
+
+    PositiveMailBody(itemSummaries, searchPhrase, interval) {
+        
+        let productsBody = ''
+        itemSummaries.map(item => {
+            const { title, price, itemWebUrl } = item
+            productsBody += `<h2><a href="${itemWebUrl}"><strong>${title}</strong> just for ${price.currency} ${price.value}</a></h2>\n`
+            return item
+        })
+
+        return `
+            The boss went crazy! It's just TODAY!
+
+            Offers for ${searchPhrase} on Ebay with the LOWEST PRICES!!
+
+            ${productsBody}
+            
+            Click and check it out! :D
+
+            Note: You will receive updates at every ${interval} minutes!
+
+            you can manage it at https://localhost:3000
+        `
+    }
+
+    negativeMailBody(searchPhrase, interval){
+        return `
+            Come peacefully! Come peacefully!
+            
+            We haven't ${searchPhrase} offers on Ebay for now!
+            
+            But don't worry, you will receive updates at every ${interval} minutes!
+
+            It's cool, isn't it? Haha
+
+            you can manage it at https://localhost:3000
+        `
     }
     /**
      * @param { from, to, subject, html } email 
