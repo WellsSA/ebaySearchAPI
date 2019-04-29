@@ -7,7 +7,7 @@ class MailHelper {
         const { email, searchPhrase, interval } = item
         const sortBy = 'price', limitIn = 3
 
-        setInterval(async () => {
+        // setInterval(async () => {
 
             //@ToDo chamar API Ebay e pegar produtos para gerar o corpo do e-mail
             const ebay = new EbayHelper()
@@ -27,7 +27,7 @@ class MailHelper {
             //     html: 'E-mail foi enviado do <strong>Node.js</strong>' // O conteúdo do e-mail
             // })
             // console.log(`Enviar email a cada ${interval} minutos para ${email} sobre palavra_chave ${searchPhrase}`)
-        }, interval * 1000)
+        // }, interval * 1000)
     }
 
     PositiveMailBody(itemSummaries, searchPhrase, interval) {
