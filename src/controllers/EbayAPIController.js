@@ -1,5 +1,4 @@
 const { EbayAPI, ebayAuthHeaders } = require('./../../config/EbayAPI')
-const axios = require('axios')
 /**
  * @class EbayHelper
  * @description defines helper class to handle searchs to Ebay API

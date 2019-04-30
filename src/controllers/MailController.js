@@ -16,17 +16,15 @@ class MailHelper {
 
             let mailBody = (!itemSummaries) ? this.negativeMailBody(searchPhrase, interval) 
                                             : this.PositiveMailBody(itemSummaries, searchPhrase, interval)
+
+            const mailTitle = `${searchPhrase} deals on eBay right now!`                                
             console.log('---------------------')
             console.log(mailBody)
             //@ToDo mandar e-mail
             //@Note descomentar envio de emails para testes
-            // sendMail({
-            //     from: 'startupenvia@envia.io', // @ToDo pegar da variável de ambiente
-            //     to: email,
-            //     subject: 'Node.js ♥ unicode',  // Um assunto bacana :-) 
-            //     html: 'E-mail foi enviado do <strong>Node.js</strong>' // O conteúdo do e-mail
-            // })
-            // console.log(`Enviar email a cada ${interval} minutos para ${email} sobre palavra_chave ${searchPhrase}`)
+            const from = 'startupenvia@envia.io'
+            // this.sendMail(from, email, mailTitle, mailBody)
+            console.log(`Enviar email a cada ${interval} minutos para ${email} sobre palavra_chave ${searchPhrase}`)
         // }, interval * 1000)
     }
 
@@ -42,7 +40,7 @@ class MailHelper {
         return `
             The boss went crazy! It's just TODAY!
 
-            Offers for ${searchPhrase} on Ebay with the LOWEST PRICES!!
+            ${searchPhrase} deals on eBay with the LOWEST PRICES!!
 
             ${productsBody}
             
@@ -58,7 +56,7 @@ class MailHelper {
         return `
             Come peacefully! Come peacefully!
             
-            We haven't ${searchPhrase} offers on Ebay for now!
+            We haven't ${searchPhrase} deals on Ebay for now!
             
             But don't worry, you will receive updates at every ${interval} minutes!
 
@@ -70,8 +68,16 @@ class MailHelper {
     /**
      * @param { from, to, subject, html } email 
      */
-    async sendMail(email) {
+    async sendMail(from, to, subject, html) {
 
+        const email = { from, to, subject, html }
+
+        // const email = {
+        //     from: 'startupenvia@envia.io', // @ToDo pegar da variável de ambiente
+        //     to: email,
+        //     subject: 'Node.js ♥ unicode',  // Um assunto bacana :-) 
+        //     html: 'E-mail foi enviado do <strong>Node.js</strong>' // O conteúdo do e-mail
+        // }
         transport.sendMail(email, function(err, info){
         if(err)
             throw err; // Oops, algo de errado aconteceu.

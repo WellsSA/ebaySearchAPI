@@ -8,7 +8,7 @@ class CronSchedule {
         this._prepareScheduleInMinutes(2)
         this._prepareScheduleInMinutes(10)
         this._prepareScheduleInMinutes(30)
-        // cron.schedule("*/2 * * * *", () => console.log("Executando a tarefa a cada 2 minutos"))
+    
     }
 
     _prepareScheduleInMinutes(minutes) {

@@ -1,5 +1,4 @@
 const Alert = require('../models/AlertModel')
-const MailHelper = require('./MailController')
 
 module.exports = {
     // Cria o alerta na base de dados
@@ -31,12 +30,5 @@ module.exports = {
         req.io.emit('alertDeleted', del)
 
         return res.json(del)
-    },
-    // Prepara para enviar alertas por email
-    async notify(req, res){
-        const alerts = await Alert.find({})
-        const mailHelper = new MailHelper()
-        alerts.map((item) => mailHelper.prepareToSendMail(item))
-        return res.send('Preparando para disparar alertas')
     }
 }
