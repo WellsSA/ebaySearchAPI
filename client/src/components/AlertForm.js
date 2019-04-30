@@ -1,5 +1,6 @@
 import React from 'react'
 import ebayAPI from './../config/ebayAPI'
+import './assets/css/AlertForm.css'
 
 class AlertForm extends React.Component {
     constructor(props) {
@@ -7,10 +8,17 @@ class AlertForm extends React.Component {
       this.state = {
           searchPhrase: '',
           email: '',
-          interval: '2',
+          interval: '',
         };
     }
-  
+    componentDidMount() {
+        const { searchPhrase, email, interval } = this.props
+        
+        if(searchPhrase) this.setState({searchPhrase})
+        if(email) this.setState({email})
+        if(interval) this.setState({interval})
+
+    }
     handleSubmit = async (event) => {
         event.preventDefault()
         const { operation } = this.props
@@ -36,48 +44,53 @@ class AlertForm extends React.Component {
             interval: changeEvent.target.value
         })
     }
+    
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-            <label>
-                SearchPhrase:
-                <input 
-                    type="text" 
-                    value={this.state.searchPhrase} 
-                    onChange={(e) => this.setState({searchPhrase: e.target.value})} />
-            </label>
-            <label>
-                E-mail:
-                <input 
-                    type="email" 
-                    value={this.state.email} 
-                    onChange={(e) => this.setState({email: e.target.value})} />
-            </label>
-            <div className="radio">
-                <label>
-                    <input type="radio" value="2" 
-                                checked={this.state.interval === '2'} 
-                                onChange={this.handleOptionChange} />
-                    02 minutos
-                </label>
+        <form onSubmit={this.handleSubmit} className="alertForm">
+            <div>
+                <label className="inputLabel">
+                    SearchPhrase: 
+                    <input 
+                        type="text" 
+                        value={this.state.searchPhrase} 
+                        onChange={(e) => this.setState({searchPhrase: e.target.value})} />
+                </label><br />
+                <label  className="inputLabel">
+                    E-mail: 
+                    <input 
+                        type="email" 
+                        value={this.state.email} 
+                        onChange={(e) => this.setState({email: e.target.value})} />
+                </label><br />
             </div>
-            <div className="radio">
-                <label>
-                    <input type="radio" value="10" 
-                                checked={this.state.interval === '10'} 
-                                onChange={this.handleOptionChange} />
-                    10 minutos
-                </label>
+            <div className="radioInputs">
+                <div className="radio">
+                    <label>
+                        <input type="radio" value="2" 
+                                    checked={this.state.interval === '2'} 
+                                    onChange={this.handleOptionChange} />
+                        02 minutes
+                    </label>
+                </div>
+                <div className="radio">
+                    <label>
+                        <input type="radio" value="10" 
+                                    checked={this.state.interval === '10'} 
+                                    onChange={this.handleOptionChange} />
+                        10 minutes
+                    </label>
+                </div>
+                <div className="radio">
+                    <label>
+                        <input type="radio" value="30" 
+                                    checked={this.state.interval === '30'} 
+                                    onChange={this.handleOptionChange} />
+                        30 minutes
+                    </label>
+                </div>
             </div>
-            <div className="radio">
-                <label>
-                    <input type="radio" value="30" 
-                                checked={this.state.interval === '30'} 
-                                onChange={this.handleOptionChange} />
-                    30 minutos
-                </label>
-            </div>
-          <input type="submit" value="Submit" />
+          <input className="submitInput" type="submit" value="Save Alert" />
         </form>
       );
     }
