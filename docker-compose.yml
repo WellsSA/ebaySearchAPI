@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    container_name: node-container
+    command: npm start
+    ports: 
+      - "4000:4000"
+    volumes:
+      - .:/usr/app
+    links: 
+      - mongo
+    environment:
+      EBAY_API_TOKEN_SANDBOX: "token token token"
+      EBAY_API_SANDBOX: "true"
+      SMTP_HOST: "aws.zezim"
+  mongo:
+    image: mongo
+    container_name: mongo-container
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./mongoData:/data/db
+    ports:
+      - "27017:27017"
+  client:
+    build:
+      context: ./client
+    container_name: react-container
+    command: npm start
+    volumes:
+      - ./client/:/usr/app/client
+      - /usr/app/client/node_modules
+    depends_on:
+      - app
+    ports:
+      - "3000:3000"
+  
+  
+
+
