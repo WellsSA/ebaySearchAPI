@@ -5,16 +5,14 @@ const app = express()
 
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-try {
-    mongoose.connect(
-        "mongodb+srv://WellSA:123@cluster0-yy2tm.mongodb.net/test?retryWrites=true",
-        {
-            useNewUrlParser: true
-        }
-    );
-} catch(err){
-    console.log('failed to connect to mongoDB', err)
-}
+
+mongoose
+    .connect(
+        "mongodb://mongo:27017/node-container",
+        { useNewUrlParser: true }
+    )
+    .then(() => console.log('MongoDB Connected!'))
+    .catch(err => console.log(err))
 
 
 //middleware
