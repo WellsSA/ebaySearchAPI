@@ -1,5 +1,5 @@
 const { EbayHelper } = require('./EbayAPIController')
-const transport = require('./../../config/smtp')
+const { transport, hostMail } = require('./../../config/smtp')
 
 class MailHelper {
 
@@ -22,8 +22,8 @@ class MailHelper {
             console.log(mailBody)
             //@ToDo mandar e-mail
             //@Note descomentar envio de emails para testes
-            const from = 'startupenvia@envia.io'
-            // this.sendMail(from, email, mailTitle, mailBody)
+            const from = hostMail
+            this.sendMail(from, email, mailTitle, mailBody)
             console.log(`Enviar email a cada ${interval} minutos para ${email} sobre palavra_chave ${searchPhrase}`)
         // }, interval * 1000)
     }
