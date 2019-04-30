@@ -1,7 +1,7 @@
 const Alert = require('../models/AlertModel')
 
 module.exports = {
-    // Cria o alerta na base de dados
+    
     async create(req, res) {
         const save = await Alert.create(req.body)
         
