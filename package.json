@@ -16,7 +16,7 @@
     "mongoose": "^5.5.4",
     "node-cron": "^2.0.3",
     "nodemailer": "^6.1.1",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.5.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.11"
